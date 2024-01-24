@@ -40,6 +40,11 @@ if(($AllUserDG -notcontains $user.samaccountname) -and ($user.mail)) {Add-ADGrou
    security group and add any users to the distribution groups that are 
    mail-enbaled, members of the corresponding security group, 
    and not currently a member of the distribution group
+
+   Initially, the following loop would run for several (get-adgroupmember)
+   was being run for each group that each user was a member of. This cmdlet
+   was taking 20-30 seconds each run. By flipping the iteration to intially 
+   review the groups, this script was reduced to run in only a few minutes.
 #> 
 
 for(($i=0);($i -lt $dgs.count);$i++){  # iterates $i in each loop until it reaches the length of the $dgs array
